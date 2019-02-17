@@ -1,0 +1,21 @@
+{
+  "name": "bubanga/payment_api",
+  "description": "Library for the payment API",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Jakub Gniecki",
+      "email": "kubuspl@onet.eu"
+    }
+  ],
+  "require":
+  {
+    "php": "^7.0",
+    "ext-json": "^1.2.0"
+  },
+  "autoload":
+  {
+    "psr-4": { "bubanga\\": "src" }
+  }
+}
