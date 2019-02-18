@@ -55,8 +55,8 @@ You must use these classes with the namespace `\bubanga\Sms\`
 ```
 
 ## Documentation
-###Providers SMS Premium
-####Cashbill
+### Providers SMS Premium
+#### Cashbill
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -66,7 +66,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\Cashbill(), $secret, $request);
 ```
 ---
-####GetPay
+#### GetPay
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -76,7 +76,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\GetPay(), $secret, $request);
 ```
 ---
-####HotPay
+#### HotPay
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -96,7 +96,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\Lvlup(), $secret, $request);
 ```
 ---
-####Mircosms
+#### Mircosms
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -106,7 +106,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\Microsms(), $secret, $request);
 ```
 ---
-####Przelewy
+#### Przelewy
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -116,7 +116,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\Przelewy(), $secret, $request);
 ```
 ---
-####SimPay
+#### SimPay
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -125,8 +125,8 @@ You must use these classes with the namespace `\bubanga\Sms\`
 	
     $payment->setPaymentSMS(new \bubanga\Sms\SimPay(), $secret, $request);
 ```
-###Providers PaySafeCard
-###Providers PayPal
-###Providers Transfer
+### Providers PaySafeCard
+### Providers PayPal
+### Providers Transfer
 ## License
 [Apache2.0](LICENSE)
