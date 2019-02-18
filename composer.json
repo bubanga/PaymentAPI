@@ -18,5 +18,8 @@
   "autoload":
   {
     "psr-4": { "bubanga\\": "src" }
+  },
+  "require-dev": {
+    "symfony/web-server-bundle": "^4.2"
   }
 }
