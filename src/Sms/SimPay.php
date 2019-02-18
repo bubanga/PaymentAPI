@@ -5,41 +5,37 @@ namespace bubanga\Sms;
 
 class SimPay extends AbstractSms
 {
-    use SmsTrait;
-
-    protected function checkRequest ():bool
+    public function getRequiredParams():array
     {
-        $url = 'https://simpay.pl/api/status';
-        $data = $this->generateData();
-
-        $curl = curl_init();
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_FAILONERROR, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // developer only
-
-        $call = curl_exec($curl);
-        $response = json_decode($call, true);
-        $error = curl_errno($curl);
-
-        curl_close($curl);
-
-        if ($error > 0) {
-            throw new RuntimeException('CURL ERROR Code:'.$error);
-        }
-
-        return $this->response = $response;
+        return [
+            'secret' => ['api_key', 'api_secret'],
+            'request' => ['code', 'number', 'service_id']
+        ];
     }
 
-    private function generateData ():string
+    public function checkRequest ():bool
     {
-        if (!$this->checkCode($this->request['code'])) {
-            //TODO Error
+        if (!$this->checkCode($this->request['code'], 6) || !$this->getRequiredParams())
+            return false;
+
+        $api = $this->sendJsonRequest(
+            array(
+                'params' => array_merge(
+                    ['auth' => $this->secret],
+                    $this->request
+                )
+            ),
+            'https://simpay.pl/api/status');
+        if (!is_array($api)) {
+            $this->setError(self::$error_code[3], 3);
+            return false;
         }
 
-        return json_encode(array('params'=>array_merge(['auth' => $this->secret], $this->request)));
+        if(isset($api['respond']['status']) && $api['respond']['status'] == 'OK')
+            return true;
+
+
+        $this->setError($api['error']['error_name'], $api['error']['error_code']);
+        return false;
     }
 }

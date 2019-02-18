@@ -3,6 +3,7 @@
   "description": "Library for the payment API",
   "type": "library",
   "license": "Apache-2.0",
+  "keywords": ["Payment", "SMS", "PayPal", "PaySafeCard", "Transfer"],
   "authors": [
     {
       "name": "Jakub Gniecki",

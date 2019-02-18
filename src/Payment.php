@@ -7,12 +7,16 @@ use bubanga\Sms\AbstractSms;
 
 class Payment
 {
-
-    public function getPaymentSMS (AbstractSms $payment, array $secret, array $request):bool
+    private $paymentSMS;
+    public function setPaymentSMS(AbstractSms $payment, array $secret, array $request)
     {
-        $payment->setSecret($secret);
-        $payment->setRequest($request);
+        $this->paymentSMS = $payment;
+        $this->paymentSMS->setSecret($secret);
+        $this->paymentSMS->setRequest($request);
+    }
 
-        return $payment->getResponse();
+    public function getPaymentSMS ()
+    {
+        return $this->paymentSMS;
     }
 }
