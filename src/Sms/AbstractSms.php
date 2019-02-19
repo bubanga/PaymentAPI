@@ -34,11 +34,20 @@ abstract class AbstractSms
 
     protected function checkRequiredParams ():bool
     {
-        foreach ($this->getRequiredParams() as $param => $item) {
-            $value = $this->$param;
-            if (!isset($value[$item])) {
-                $this->setError(self::$error_code[4] . $param . " => " . $item, 4);
-                return false;
+        $params[] = 'secret';
+        $params[] = 'request';
+
+        foreach ($params as $param)
+        {
+            if (isset($this->getRequiredParams()[$param])) {
+                foreach ($this->getRequiredParams()[$param] as $item) {
+                    $value = $this->$param;
+
+                    if (!isset($value[$item])) {
+                        $this->setError(self::$error_code[4] . $param . " => " . $item, 4);
+                        return false;
+                    }
+                }
             }
         }
 

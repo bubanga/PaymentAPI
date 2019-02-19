@@ -7,11 +7,18 @@ use bubanga\Paypal\AbstractPaypal;
 use bubanga\Paysafecard\AbstractPaysafecard;
 use bubanga\Sms\AbstractSms;
 use bubanga\Transfer\AbstractTransfer;
+use bubanga\PaymentException;
 
 class Payment
 {
     private $payment;
 
+    /**
+     * @param AbstractSms $payment
+     * @param array $secret
+     * @param array $request
+     * @param array|null $action
+     */
     public function setPaymentSMS(AbstractSms $payment, array $secret, array $request, ?array $action = null)
     {
         $this->payment['sms'] = $payment;
@@ -29,19 +36,46 @@ class Payment
             $this->payment['sms']->setAction($action);
     }
 
+    /**
+     * @return mixed
+     * @throws \bubanga\PaymentException
+     */
     public function getPaymentSMS ()
     {
-        return $this->payment['sms'];
+        if (isset($this->payment['sms']))
+            return $this->payment['sms'];
+
+        throw new PaymentException(''); //TODO
     }
 
-    public function setPaymentPSC(AbstractPaysafecard $payment)
+    /**
+     * @param AbstractPaysafecard $payment
+     * @param array $secret
+     * @param array $request
+     * @param array|null $response
+     */
+    public function setPaymentPSC(AbstractPaysafecard $payment, array $secret, array $request, ?array $response = null)
     {
         $this->payment['psc'] = $payment;
+        $this->payment['psc']->setSecret($secret);
+        $this->payment['psc']->setRequest($request);
+
+        if (isset($response) && is_array($response))
+            $this->payment['psc']->setResponse($response);
     }
 
+    /**
+     * @return mixed
+     * @throws \bubanga\PaymentException
+     */
     public function getPaymentPSC ()
     {
-        return $this->payment['psc'];
+
+        if (isset($this->payment['psc']))
+            return $this->payment['psc'];
+
+        throw new PaymentException(''); //TODO
+
     }
 
     public function setPaymentPP(AbstractPaypal $payment)
