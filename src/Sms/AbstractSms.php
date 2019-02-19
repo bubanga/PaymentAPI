@@ -18,7 +18,8 @@ abstract class AbstractSms
         1 => "[System] Your code is bad because it does not meet the requirements",
         2 => "[System] Your code is incorrect",
         3 => "[System] Error system API",
-        4 => "[System] Not found value for "
+        4 => "[System] Not found value for ",
+        5 => "[System] Bad value for "
     ];
 
     /**

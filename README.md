@@ -22,12 +22,12 @@ composer require bubanga/payment_api
 > *Lvlup*<br>
 > *Mircosms*<br>
 > *Przelewy*<br>
+> *RushPay*<br>
 > *SimPay*
 
 TODO:
 
-> *DotPay*<br>
-> *RushPay*
+> *DotPay*
 
 You must use these classes with the namespace `\bubanga\Sms\`
 
