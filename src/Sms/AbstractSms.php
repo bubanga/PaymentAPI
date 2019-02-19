@@ -3,12 +3,15 @@
 namespace bubanga\Sms;
 
 
+use bubanga\PaymentException;
+
 abstract class AbstractSms
 {
     protected $error;
-    protected $response = [];
+    protected $response;
     protected $secret;
     protected $request;
+    protected $action;
 
     static protected $error_code = [
         0 => "[System] Unidentified",
@@ -35,7 +38,7 @@ abstract class AbstractSms
         return true;
     }
 
-    protected function checkCode ($code, int $length = 6)
+    protected function checkCode ($code, int $length = 6):bool
     {
         $code = addslashes($code);
 
@@ -57,18 +60,17 @@ abstract class AbstractSms
         $this->request = $request;
     }
 
+    public function setAction(array $action):void
+    {
+        $this->action = $action;
+    }
+
     public function getResult():bool
     {
-        /**
-         * success: true/false
-         * error:
-         *  number:
-         *  text:
-         */
         return $this->checkRequest();
     }
 
-    public function getResponse ():array
+    public function getResponse ():?array
     {
         return $this->response;
     }
@@ -78,7 +80,7 @@ abstract class AbstractSms
         return $this->error;
     }
 
-    protected function setError(string $text, int $number = 0)
+    protected function setError(string $text, int $number = 0):void
     {
         $this->error = [
             'number' => $number,
@@ -110,12 +112,12 @@ abstract class AbstractSms
         }
     }
 
-    protected function sendGetRequest(string $website, bool $decode = true)
+    protected function sendGetRequest(string $website, bool $decode = true):?array
     {
         $api = @file_get_contents($website);
         if (!$decode) {
             $this->response = array($api);
-            return $api;
+            return array($api);
         }
 
 
@@ -124,5 +126,27 @@ abstract class AbstractSms
             return $result;
         }
 
+    }
+
+    protected function action(array $action):void
+    {//TODO catch
+        try {
+            if (isset($action['func'])) {
+                call_user_func($action['func'], $action['params']);
+            } else {
+                call_user_func_array(array($action['class'], $action['method']), $action['params']);
+            }
+        } catch (PaymentException $exception)
+        {
+
+        }
+    }
+
+    public function isAction ():bool
+    {
+        if (isset($this->action) && is_array($this->action))
+            return true;
+
+        return false;
     }
 }

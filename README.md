@@ -86,7 +86,7 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\HotPay(), $secret, $request);
 ```
 ---
-####Lvlup
+#### Lvlup
 ```php
 <?php
     $payment = new \bubanga\Payment();
@@ -96,13 +96,14 @@ You must use these classes with the namespace `\bubanga\Sms\`
     $payment->setPaymentSMS(new \bubanga\Sms\Lvlup(), $secret, $request);
 ```
 ---
-#### Mircosms
+#### Mircosms & RushPay
 ```php
 <?php
     $payment = new \bubanga\Payment();
     $secret = array('api_key' => "");
     $request = array ('code' => "", 'service_id' => "");
 	
+    //$payment->setPaymentSMS(new \bubanga\Sms\Rushpay(), $secret, $request); or
     $payment->setPaymentSMS(new \bubanga\Sms\Microsms(), $secret, $request);
 ```
 ---
@@ -129,4 +130,4 @@ You must use these classes with the namespace `\bubanga\Sms\`
 ### Providers PayPal
 ### Providers Transfer
 ## License
-[Apache2.0](LICENSE)
+PaymentAPI is licensed under the [GNU Lesser General Public License v3](LICENSE).

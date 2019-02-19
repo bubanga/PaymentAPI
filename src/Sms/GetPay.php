@@ -29,7 +29,7 @@ class GetPay extends AbstractSms
 
     public function checkRequest(): bool
     {
-        if (!$this->checkCode($this->request['code'], 8) || !$this->getRequiredParams())  //TODO @length SMS code
+        if (!$this->checkCode($this->request['code'], 6) || !$this->getRequiredParams())
             return false;
 
         $api = $this->sendJsonRequest(

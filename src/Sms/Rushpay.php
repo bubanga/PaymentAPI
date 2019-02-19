@@ -5,7 +5,7 @@ namespace bubanga\Sms;
 
 use bubanga\PaymentException;
 
-class Microsms extends AbstractSms
+class Rushpay extends AbstractSms
 {
     public function getRequiredParams():array
     {
@@ -21,9 +21,9 @@ class Microsms extends AbstractSms
             return false;
 
         if (isset($this->request['products']) && is_array(($this->request['products']))) {
-            $url = "http://microsms.pl/api/v2/multi.php?userid=" . $this->secret['api_key'] . "&code=" . $this->request['code'] . '&serviceid=' . $this->request['service_id'];
+            $url = "https://rushpay.pl/api/v2/multi.php?userid=" . $this->secret['api_key'] . "&code=" . $this->request['code'] . '&serviceid=' . $this->request['service_id'];
         } else {
-            $url = "http://microsms.pl/api/v2/index.php?userid=" . $this->secret['api_key'] . "&code=" . $this->request['code'] . '&serviceid=' . $this->request['service_id'] . "&number=" . $this->request['number'];
+            $url = "https://rushpay.pl/api/v2/index.php?userid=" . $this->secret['api_key'] . "&code=" . $this->request['code'] . '&serviceid=' . $this->request['service_id'] . "&number=" . $this->request['number'];
         }
 
         $api = $this->sendGetRequest($url);

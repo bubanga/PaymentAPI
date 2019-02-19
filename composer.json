@@ -2,8 +2,8 @@
   "name": "bubanga/payment_api",
   "description": "Library for the payment API",
   "type": "library",
-  "license": "Apache-2.0",
-  "keywords": ["Payment", "SMS", "PayPal", "PaySafeCard", "Transfer"],
+  "license": "GNU",
+  "keywords": ["Payment", "SMS", "PayPal", "PaySafeCard", "Transfer", "API"],
   "authors": [
     {
       "name": "Jakub Gniecki",
@@ -18,8 +18,5 @@
   "autoload":
   {
     "psr-4": { "bubanga\\": "src" }
-  },
-  "require-dev": {
-    "symfony/web-server-bundle": "^4.2"
   }
 }
