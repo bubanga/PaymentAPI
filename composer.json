@@ -2,7 +2,7 @@
   "name": "bubanga/payment_api",
   "description": "Library for the payment API",
   "type": "library",
-  "license": "GNU",
+  "license": "AGPL-3.0-only",
   "keywords": ["Payment", "SMS", "PayPal", "PaySafeCard", "Transfer", "API"],
   "authors": [
     {
