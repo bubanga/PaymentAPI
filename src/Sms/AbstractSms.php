@@ -21,8 +21,14 @@ abstract class AbstractSms
         4 => "[System] Not found value for "
     ];
 
+    /**
+     * @return array
+     */
     abstract public function getRequiredParams():array;
 
+    /**
+     * @return bool
+     */
     abstract public function checkRequest():bool;
 
     protected function checkRequiredParams ():bool
@@ -50,31 +56,49 @@ abstract class AbstractSms
         return false;
     }
 
+    /**
+     * @param array $secret
+     */
     public function setSecret (array $secret):void
     {
         $this->secret = $secret;
     }
 
+    /**
+     * @param array $request
+     */
     public function setRequest (array $request):void
     {
         $this->request = $request;
     }
 
+    /**
+     * @param array $action
+     */
     public function setAction(array $action):void
     {
         $this->action = $action;
     }
 
+    /**
+     * @return bool
+     */
     public function getResult():bool
     {
         return $this->checkRequest();
     }
 
+    /**
+     * @return array|null
+     */
     public function getResponse ():?array
     {
         return $this->response;
     }
 
+    /**
+     * @return array|null
+     */
     public function getError():?array
     {
         return $this->error;
@@ -142,6 +166,9 @@ abstract class AbstractSms
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isAction ():bool
     {
         if (isset($this->action) && is_array($this->action))
