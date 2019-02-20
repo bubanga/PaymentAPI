@@ -15,7 +15,7 @@ class HotPay extends AbstractSms
 
     public function checkRequest(): bool
     {
-        if (!$this->checkCode($this->request['code'], 8) || !$this->getRequiredParams())  //TODO @length SMS code
+        if (!$this->getRequiredParams())
             return false;
 
         $url = "https://api.hotpay.pl/check_sms.php?sekret=" . $this->secret['api_key'] . "&kod_sms=" . $this->request['code'];

@@ -49,11 +49,11 @@ abstract class AbstractPaysafecard
 
     abstract public function checkResponse(bool $authorization = true);
 
-    abstract public function getData(bool $provider = false):?array;
+    abstract public function getData():?array;
 
     abstract public function requestAuthorization():bool;
 
-    abstract public function getRequiredParams(bool $response = false):array;
+    abstract public function getRequiredParams():array;
 
     public function getResponse ():array
     {
@@ -83,14 +83,14 @@ abstract class AbstractPaysafecard
         ];
     }
 
-    protected function checkRequiredParams(bool $response = false):bool
+    protected function checkRequiredParams():bool
     {
         $params[] = 'secret';
         $params[] = 'request';
         foreach ($params as $param)
         {
-            if (isset($this->getRequiredParams($response)[$param])) {
-                foreach ($this->getRequiredParams($response)[$param] as $item) {
+            if (isset($this->getRequiredParams()[$param])) {
+                foreach ($this->getRequiredParams()[$param] as $item) {
                     $value = $this->$param;
 
                     if (!isset($value[$item])) {

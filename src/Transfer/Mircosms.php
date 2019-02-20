@@ -1,23 +1,23 @@
 <?php
 
-namespace bubanga\Paysafecard;
+namespace bubanga\Transfer;
 
 
-class Rushpay extends AbstractPaysafecard
+use \bubanga\PaySafeCard\AbstractPaysafecard;
+
+class Mircosms extends AbstractPaysafecard
 {
 
-    public function getRequiredParams(bool $response = false):array
+    public function getRequiredParams():array
     {
         /*
             return [
-                'secret' => ['api_key', 'api_secret'],
-                'request' => ['shop_id', 'price']
+                'secret' => ['api_secret'],
             ];
          */
-
         return [
-            'secret' => ['api_key', 'api_secret'],
-            'request' => ['shop_id', 'price', 'response']
+            'secret' => ['api_secret'],
+            'request' => ['shop_id', 'price', 'response', 'email']
         ];
     }
 
@@ -35,20 +35,20 @@ class Rushpay extends AbstractPaysafecard
     public function getData (bool $provider = false):?array
     {
         if ($provider)
-            return array('https://www.rushpay.pl/api/psc/');
+            return array('https://microsms.pl/api/bankTransfer/');
 
         if (!$this->checkRequiredParams())
             return null;
 
         return [
-            'userid'        => $this->secret['api_key'],
             'shopid'        => $this->request['shop_id'],
             'amount'        => $this->request['price'],
-            'return_ok'     => $this->request['response'],
-            'return_fail'   => $this->request['response'],
-            'url'           => $this->request['response'],
+            'return_urlc'   => $this->request['response'],
+            'return_url'    => $this->request['response'],
+            'signature'     => md5($this->request['shop_id'] . $this->secret['api_key'] . $this->request['price']),
             'control'       => "",
-            'hash'          => $this->hash()
+            'email'         => $this->request['email'],
+            'description'   => ""
         ];
     }
 
@@ -63,14 +63,9 @@ class Rushpay extends AbstractPaysafecard
         return true;
     }
 
-    private function hash ():string
-    {
-        return hash('sha256', $this->secret['api_key'] . $this->secret['api_secret'] . $this->request['price']);
-    }
-
     private function validDateIpn():bool
     {
-        if (!in_array($_SERVER['REMOTE_ADDR'], explode(',', file_get_contents("https://rushpay.pl/psc/ips/"))) == TRUE)
+        if (!in_array($_SERVER['REMOTE_ADDR'], explode(',', file_get_contents("https://microsms.pl/psc/ips/"))) == TRUE)
             return false;
 
         return true;
@@ -78,7 +73,7 @@ class Rushpay extends AbstractPaysafecard
 
     private function validDateUser():bool
     {
-        if ($this->secret['api_key'] != $this->response['userid'] || $this->request['shop_id'] != $this->response['shopid'])
+        if ($this->secret['api_secret'] != $this->response['userid'])
             return false;
 
         return true;

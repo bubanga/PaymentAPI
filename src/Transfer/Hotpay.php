@@ -1,7 +1,9 @@
 <?php
 
-namespace bubanga\Paysafecard;
+namespace bubanga\Transfer;
 
+
+use \bubanga\PaySafeCard\AbstractPaysafecard;
 
 class Hotpay extends AbstractPaysafecard
 {
@@ -13,7 +15,6 @@ class Hotpay extends AbstractPaysafecard
             ];
 
          */
-
         return [
             'secret' => ['api_key', 'api_secret'],
             'request' => ['shop_id', 'price', 'name', 'data', 'response', 'email']
@@ -34,7 +35,7 @@ class Hotpay extends AbstractPaysafecard
     public function getData (bool $provider = false):?array
     {
         if ($provider)
-            return array('https://psc.hotpay.pl/');
+            return array('https://platnosc.hotpay.pl/');
 
         if (!$this->checkRequiredParams())
             return null;
