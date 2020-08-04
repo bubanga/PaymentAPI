@@ -4,7 +4,7 @@
   "type": "library",
   "license": "AGPL-3.0-only",
   "keywords": ["Payment", "SMS", "PayPal", "PaySafeCard", "Transfer", "API"],
-  "minimum-stability": "dev-master",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Jakub Gniecki",
