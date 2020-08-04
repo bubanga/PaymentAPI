@@ -4,7 +4,7 @@
 
 This library can be used to query payment providers for code authorizations
 
-**:warning: Library not tested.**
+**:warning: Library not tested.**!
 
 ## Install
 
